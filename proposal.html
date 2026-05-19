@@ -41,7 +41,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-y: scroll;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     scroll-padding-top: var(--nav-h);
   }
 
@@ -170,14 +170,17 @@
   section {
     min-height: 100vh;
     height: 100vh;
-    padding: calc(var(--nav-h) + 20px) 32px 32px;
+    padding: calc(var(--nav-h) + 40px) 32px 48px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     position: relative;
     overflow: hidden;
+  }
+  section.hero, section.closing {
+    justify-content: center;
   }
   @media (max-height: 700px) {
     section { height: auto; overflow: visible; }
@@ -263,6 +266,41 @@
     margin: 22px 0;
     font-weight: 500;
     letter-spacing: -0.005em;
+  }
+  .vision-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px;
+  }
+  .vision-list li {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text);
+    padding-left: 18px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .vision-list li:last-child { margin-bottom: 0; }
+  .vision-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .vision-list .lbl {
+    font-weight: 600;
+    color: var(--headline);
+  }
+  p.vision-close {
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--headline);
+    margin-bottom: 0;
   }
   p.byline {
     font-family: 'JetBrains Mono', monospace;
@@ -420,14 +458,14 @@
   .audience-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 22px;
+    gap: 12px;
+    margin-top: 16px;
   }
   .audience-grid .card {
     background: var(--bg);
     border: 1px solid var(--rule);
     border-radius: 10px;
-    padding: 16px 18px 18px;
+    padding: 14px 16px 16px;
     transition: border-color 200ms ease, transform 200ms ease;
   }
   section.alt .audience-grid .card { background: var(--bg); }
@@ -441,19 +479,19 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-weight: 500;
   }
   .audience-grid .card .name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 19px;
+    font-size: 18px;
     color: var(--headline);
     line-height: 1.18;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-weight: 500;
   }
   .audience-grid .card p {
-    font-size: 12.5px;
+    font-size: 12px;
     line-height: 1.48;
     color: var(--text);
     margin: 0;
@@ -469,24 +507,32 @@
   /* === Journey === */
   .journey {
     display: grid;
-    grid-template-columns: 1fr 44px 1fr 44px 1fr;
-    align-items: start;
+    grid-template-columns: 1fr 48px 1fr 48px 1fr;
+    align-items: stretch;
     gap: 0;
     margin: 22px 0 14px;
   }
+  .journey .step {
+    display: flex;
+    flex-direction: column;
+  }
   .journey .step .num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--accent);
-    letter-spacing: 0.06em;
-    margin-bottom: 8px;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    height: 18px;
   }
   .journey .step h4 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
+    font-size: 30px;
     color: var(--headline);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.005em;
   }
   .journey .step p {
     font-size: 13px;
@@ -496,9 +542,9 @@
   }
   .journey .arrow {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 32px;
     color: var(--accent-soft);
   }
   .journey .arrow svg {
@@ -594,32 +640,26 @@
     .modes { grid-template-columns: 1fr; gap: 16px; }
   }
 
-  /* === Unlock banner (full-width box at slide bottom) === */
-  #unlock { position: relative; padding-bottom: 0; }
+  /* === Unlock banner (thin-bordered box at end of unlock content) === */
   .unlock-banner {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--headline);
-    padding: 26px 32px;
-    border-top: 3px solid var(--accent);
+    margin-top: 22px;
+    padding: 18px 26px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
   }
   .unlock-banner p {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 20px;
-    line-height: 1.38;
-    color: var(--bg);
+    font-size: 17px;
+    line-height: 1.4;
+    color: var(--headline);
     margin: 0;
-    max-width: 1120px;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
   }
   @media (max-width: 880px) {
-    .unlock-banner { padding: 20px 24px; }
-    .unlock-banner p { font-size: 16px; }
+    .unlock-banner { padding: 14px 18px; margin-top: 18px; }
+    .unlock-banner p { font-size: 15px; }
   }
 
   /* === Phases === */
@@ -674,18 +714,18 @@
   .phase-detail {
     background: var(--bg);
     border: 1px solid var(--rule);
-    border-radius: 14px;
-    padding: 22px 26px;
-    margin-top: 18px;
+    border-radius: 12px;
+    padding: 14px 22px;
+    margin-top: 14px;
   }
   section.alt .phase-detail { background: white; }
   .phase-detail .row {
     display: grid;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 140px 1fr;
     gap: 22px;
-    padding: 10px 0;
+    padding: 8px 0;
     border-bottom: 1px solid var(--rule);
-    font-size: 13.5px;
+    font-size: 13px;
   }
   .phase-detail .row:last-of-type { border-bottom: none; }
   .phase-detail .row .label {
@@ -699,17 +739,20 @@
   }
   .phase-detail .row .body {
     color: var(--text);
-    line-height: 1.55;
+    line-height: 1.5;
   }
   .phase-detail .row .body ul {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
   .phase-detail .row .body li {
-    padding-left: 16px;
+    padding-left: 14px;
     position: relative;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
+    line-height: 1.45;
   }
+  .phase-detail .row .body li:last-child { margin-bottom: 0; }
   .phase-detail .row .body li::before {
     content: '—';
     position: absolute;
@@ -727,71 +770,22 @@
     background: linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-alt) 100%);
     color: var(--text);
     justify-content: center;
+    align-items: center;
+    text-align: center;
   }
-  .closing .container { max-width: 760px; }
-  .closing h2 {
-    color: var(--headline);
-    font-size: clamp(32px, 4vw, 48px);
-    margin-bottom: 12px;
-    line-height: 1.08;
-  }
-  .closing .one-liner {
-    font-size: 17px;
-    line-height: 1.55;
-    color: var(--text);
-    margin-bottom: 32px;
-    max-width: 620px;
-  }
-  .closing .constants-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 36px;
-    display: grid;
-    gap: 0;
-    border-top: 1px solid var(--accent);
-    border-bottom: 1px solid var(--accent);
-  }
-  .closing .constants-list li {
-    display: grid;
-    grid-template-columns: 56px 1fr;
-    align-items: baseline;
-    gap: 16px;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(31, 61, 136, 0.18);
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 19px;
-    line-height: 1.35;
-    color: var(--headline);
-  }
-  .closing .constants-list li:last-child { border-bottom: none; }
-  .closing .constants-list .n {
-    font-family: 'JetBrains Mono', monospace;
-    font-style: normal;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    font-weight: 600;
-  }
-  .closing .constants-intro {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 14px;
-    font-weight: 500;
+  .closing .container {
+    max-width: 760px;
+    text-align: center;
   }
   .closing p.sig {
-    margin-top: 12px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 22px;
+    font-size: clamp(28px, 3.4vw, 40px);
     color: var(--headline);
-    line-height: 1.4;
-    max-width: 620px;
+    line-height: 1.28;
+    margin: 0 auto;
+    max-width: 720px;
   }
-  .closing .eyebrow { color: var(--accent); }
 
   /* footer-style sig inside closing */
   .closing .container {
@@ -800,13 +794,117 @@
 
   /* Section header utility */
   .section-head {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+  }
+  .section-head h2 {
+    margin-bottom: 0;
+  }
+  .section-head .eyebrow {
+    margin-bottom: 12px;
   }
 
   /* Don't break short labels weirdly */
   h4, h3, h2 {
     overflow-wrap: normal;
     hyphens: manual;
+  }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 768px) {
+    body { font-size: 15px; }
+    section {
+      height: auto;
+      min-height: 100vh;
+      overflow: visible;
+      padding: calc(var(--nav-h) + 28px) 22px 80px;
+    }
+
+    /* Nav: collapse links, keep brand only */
+    nav.top { height: 56px; padding: 10px 18px; }
+    nav.top .inner { padding: 0; }
+    nav.top .brand { font-size: 13px; }
+    nav.top ul { display: none; }
+
+    /* Deck controls: smaller and tucked */
+    .deck-controls {
+      bottom: 16px;
+      right: 16px;
+      padding: 5px 8px 5px 14px;
+    }
+    .deck-controls .count { font-size: 10px; min-width: 40px; }
+    .deck-controls button { width: 28px; height: 28px; }
+    .deck-controls button svg { width: 12px; height: 12px; }
+
+    /* Hero */
+    .hero { padding-top: calc(var(--nav-h) + 28px); }
+    .hero h1 { font-size: 32px; line-height: 1.1; margin-bottom: 18px; }
+    .hero .dek { font-size: 16px; margin-bottom: 22px; }
+    .hero .eyebrow { font-size: 11px; letter-spacing: 0.14em; margin-bottom: 18px; }
+    .hero p.byline { font-size: 11px; }
+
+    /* Headings */
+    h2 { font-size: 26px !important; line-height: 1.18; margin-bottom: 18px; }
+    .closing p.sig { font-size: 26px !important; }
+
+    /* Vision */
+    p.diagnosis { font-size: 22px; margin: 16px 0; }
+    .vision-list li { font-size: 14px; }
+    p.vision-close { font-size: 16px; }
+
+    /* Three commitments */
+    .commitments { grid-template-columns: 1fr; gap: 6px 0; }
+    .commitments .term { font-size: 22px; padding-top: 18px; }
+    .commitments .desc { font-size: 14px; }
+    .commitments .divider-row { display: none; }
+
+    /* Why Now */
+    .three-up { grid-template-columns: 1fr; gap: 22px; }
+    .three-up h4 { font-size: 22px; margin-bottom: 8px; }
+    .why-list li { font-size: 13.5px; margin-bottom: 8px; }
+
+    /* Who It's For */
+    .audience-grid { grid-template-columns: 1fr; gap: 12px; }
+    .audience-grid .card { padding: 14px 16px; }
+    .audience-grid .card .name { font-size: 18px; }
+
+    /* Experience */
+    .journey {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin: 22px 0;
+    }
+    .journey .arrow {
+      transform: rotate(90deg);
+      padding-top: 0;
+      height: 28px;
+      width: 100%;
+    }
+    .journey .step h4 { font-size: 26px; }
+    .lenses { justify-content: flex-start !important; }
+
+    /* Unlock */
+    .modes { grid-template-columns: 1fr; gap: 14px; }
+    .modes > div { padding: 18px; }
+    .modes h4 { font-size: 18px; }
+    .unlock-banner { margin-top: 18px; padding: 16px 18px; }
+    .unlock-banner p { font-size: 15px; }
+
+    /* Phases */
+    .phase { grid-template-columns: 1fr; gap: 8px; padding: 14px 0; }
+    .phase .num { font-size: 36px; }
+    .phase h3 { font-size: 20px; }
+
+    /* Phase 1 detail */
+    .phase-detail { padding: 16px 18px; }
+    .phase-detail .row { grid-template-columns: 1fr; gap: 4px; padding: 10px 0; font-size: 13px; }
+    .phase-detail .row .label { padding-top: 0; }
+  }
+
+  /* Very small phones */
+  @media (max-width: 380px) {
+    nav.top .brand { font-size: 11px; letter-spacing: 0.02em; }
+    .hero h1 { font-size: 28px; }
+    h2 { font-size: 22px !important; }
   }
 </style>
 </head>
@@ -852,13 +950,19 @@
   <div class="container">
     <div class="eyebrow">The Vision</div>
     <h2 class="serif">An art map for San Francisco that feels like the city itself—<em>inspiring, generous, delightful, and unafraid of beauty</em>.</h2>
-    <p>For all the energy in the city's cultural life, there is no comprehensive way to find and engage with it. Museums, galleries, nonprofits, pop-ups, artist studios, public art, AR and digital-art activations all coexist in San Francisco, but none of them are legible to one another, let alone to the local audience or curious visitor. <strong>The middle of the funnel is missing</strong>—the layer that takes a person from "I would like to spend an afternoon with art" to actually walking into the right room.</p>
+    <p>For all the energy in the city's cultural life, there is no comprehensive way to find and engage with it. Museums, galleries, nonprofits, pop-ups, artist studios, public art, AR and digital-art activations all coexist in San Francisco, but none of them are legible to one another, let alone to the local audience or curious visitor.</p>
+
+    <p>The middle of the funnel is missing—the layer that takes a person from "I would like to spend an afternoon with art" to actually walking into the right room.</p>
 
     <p class="diagnosis serif">This is a market-design problem.</p>
 
-    <p><strong>Traditional venues</strong>—galleries, museums, nonprofits—are under structural pressure. <strong>Vital newcomers</strong>—digital artists, immersive venues, AI-native creators—are operating without an infrastructure. <strong>Critics who previously served as wayfinding</strong> have either vanished or been fragmented across algorithmic channels.</p>
+    <ul class="vision-list">
+      <li><span class="lbl">Traditional venues</span>—galleries, museums, nonprofits—are under structural pressure.</li>
+      <li><span class="lbl">Vital newcomers</span>—digital artists, immersive venues, AI-native creators—are operating without an infrastructure.</li>
+      <li><span class="lbl">Critics who previously served as wayfinding</span> have either vanished or been fragmented across algorithmic channels.</li>
+    </ul>
 
-    <p>What's needed is not another platform that competes with these ecosystem participants, but <strong>a piece of civic infrastructure that connects them to one another and surfaces them to the audiences they need to thrive</strong>.</p>
+    <p class="vision-close serif">What's needed is not another platform that competes with these ecosystem participants, but a piece of civic infrastructure that connects them to one another and surfaces them to the audiences they need to thrive.</p>
   </div>
 </section>
 
@@ -1039,9 +1143,10 @@
         <p>The map is designed to scale, but not extractively—a civic utility with a sustaining business model that can power potential expansion without compromising mission. The companies who help shape it here become the founding stakeholders of a new category of cultural infrastructure with real upside in the long arc.</p>
       </div>
     </div>
-  </div>
-  <div class="unlock-banner">
-    <p>Tech companies don't want to be philanthropists; they want to be participants. The map gives them a participant role in their city's cultural life—and a laboratory for the cultural products they're already building.</p>
+
+    <div class="unlock-banner">
+      <p>Tech companies don't want to be philanthropists; they want to be participants. The map gives them a participant role in their city's cultural life—and a laboratory for the cultural products they're already building.</p>
+    </div>
   </div>
 </section>
 
@@ -1130,19 +1235,7 @@
 <!-- ============ CLOSING ============ -->
 <section class="closing" id="closing">
   <div class="container">
-    <div class="eyebrow">In one sentence</div>
-    <h2 class="serif">What we'd be building.</h2>
-    <p class="one-liner">A public, beautifully made civic utility that helps San Francisco encounter its own art—and that makes the city the place where the next generation of cultural infrastructure gets built.</p>
-
-    <div class="constants-intro">What endures</div>
-    <ul class="constants-list">
-      <li><span class="n">01</span><span>People will want to gather in real places.</span></li>
-      <li><span class="n">02</span><span>People will want to encounter work made by human hands.</span></li>
-      <li><span class="n">03</span><span>People will want authority and curation more, not less, in an age of infinite generated content.</span></li>
-      <li><span class="n">04</span><span>People will want to feel that the city they live in takes its culture seriously.</span></li>
-    </ul>
-
-    <p class="sig">Thank you for the opportunity to prepare this. I'd love to talk whenever you're ready.</p>
+    <p class="sig serif">Thank you for the opportunity to prepare this. I'd love to talk whenever you're ready.</p>
   </div>
 </section>
 
@@ -1202,32 +1295,35 @@
     }
   });
 
-  // Wheel / trackpad snap — intercept wheel events and force decisive snap
-  let wheelLocked = false;
-  let wheelTimeout;
-  let accumulatedDelta = 0;
+  // Wheel / trackpad: free-scroll while actively scrolling, snap to nearest section on release
+  let wheelEndTimer;
+  let isSnapping = false;
 
-  window.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    if (wheelLocked) return;
-
-    accumulatedDelta += e.deltaY;
-
-    // Threshold to trigger a snap — filters out trackpad jitter
-    if (Math.abs(accumulatedDelta) > 40) {
-      wheelLocked = true;
-      if (accumulatedDelta > 0) {
-        goTo(current + 1);
-      } else {
-        goTo(current - 1);
+  function snapToNearest() {
+    if (isSnapping) return;
+    const scrollY = window.scrollY;
+    let nearestIdx = 0;
+    let nearestDistance = Infinity;
+    sections.forEach((s, i) => {
+      const d = Math.abs(s.offsetTop - scrollY);
+      if (d < nearestDistance) {
+        nearestDistance = d;
+        nearestIdx = i;
       }
-      accumulatedDelta = 0;
-      clearTimeout(wheelTimeout);
-      wheelTimeout = setTimeout(() => {
-        wheelLocked = false;
-      }, 850);
+    });
+    if (nearestIdx !== current || Math.abs(sections[nearestIdx].offsetTop - scrollY) > 4) {
+      isSnapping = true;
+      current = nearestIdx;
+      sections[nearestIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      updateUI();
+      setTimeout(() => { isSnapping = false; }, 600);
     }
-  }, { passive: false });
+  }
+
+  window.addEventListener('wheel', () => {
+    clearTimeout(wheelEndTimer);
+    wheelEndTimer = setTimeout(snapToNearest, 140);
+  }, { passive: true });
 
   // Touch swipe (mobile)
   let touchStartY = null;
