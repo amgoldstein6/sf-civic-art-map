@@ -812,12 +812,18 @@
 
   /* ============ MOBILE ============ */
   @media (max-width: 768px) {
-    body { font-size: 15px; }
+    body {
+      font-size: 15px;
+      /* Looser snap on mobile — let users scroll freely within overflowing sections,
+         snap only at section boundaries */
+      scroll-snap-type: y proximity;
+    }
     section {
       height: auto;
       min-height: 100vh;
       overflow: visible;
       padding: calc(var(--nav-h) + 28px) 22px 80px;
+      scroll-snap-stop: normal;
     }
 
     /* Nav: collapse links, keep brand only */
@@ -1239,7 +1245,6 @@
 <section class="closing" id="closing">
   <div class="container">
     <h1 class="thanks serif">Thank you.</h1>
-    <p class="sig serif">For the opportunity to prepare this. I'd love to talk whenever you're ready.</p>
   </div>
 </section>
 
@@ -1321,32 +1326,23 @@
     }
   }
 
-  // Longer delay (320ms) lets the user pause/hold without snapping; snaps only on full stop
-  window.addEventListener('wheel', () => {
-    lastWheelTime = Date.now();
-    clearTimeout(wheelEndTimer);
-    wheelEndTimer = setTimeout(() => {
-      // Only snap if we've truly stopped scrolling (no wheel events in the last 280ms)
-      if (Date.now() - lastWheelTime >= 280) {
-        snapToNearest();
-      }
-    }, 320);
-  }, { passive: true });
+  // Desktop only: longer delay (320ms) lets the user pause/hold without snapping
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  if (!isMobile) {
+    window.addEventListener('wheel', () => {
+      lastWheelTime = Date.now();
+      clearTimeout(wheelEndTimer);
+      wheelEndTimer = setTimeout(() => {
+        if (Date.now() - lastWheelTime >= 280) {
+          snapToNearest();
+        }
+      }, 320);
+    }, { passive: true });
+  }
 
-  // Touch swipe (mobile)
-  let touchStartY = null;
-  window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-  window.addEventListener('touchend', (e) => {
-    if (touchStartY === null) return;
-    const deltaY = touchStartY - e.changedTouches[0].clientY;
-    if (Math.abs(deltaY) > 50) {
-      if (deltaY > 0) goTo(current + 1);
-      else goTo(current - 1);
-    }
-    touchStartY = null;
-  }, { passive: true });
+  // On mobile, let the browser handle scroll/snap natively for tall sections.
+  // Users can freely scroll within a section that overflows; the browser snaps
+  // to the next section when they cross the boundary.
 
   updateUI();
 </script>
