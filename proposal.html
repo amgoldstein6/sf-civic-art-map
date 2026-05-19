@@ -287,11 +287,17 @@
     font-weight: 600;
   }
   p.vision-close {
-    font-style: italic;
-    font-size: 18px;
-    line-height: 1.45;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 1.36;
     color: var(--headline);
-    margin-bottom: 0;
+    margin: 18px 0 0;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 22px;
+    text-align: center;
   }
   p.byline {
     font-family: 'JetBrains Mono', monospace;
@@ -475,11 +481,12 @@
   }
   .audience-grid .card .name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
+    font-size: 23px;
     color: var(--headline);
-    line-height: 1.18;
-    margin-bottom: 6px;
+    line-height: 1.14;
+    margin-bottom: 8px;
     font-weight: 500;
+    letter-spacing: -0.005em;
   }
   .audience-grid .card p {
     font-size: 12px;
@@ -604,13 +611,13 @@
   .modes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-top: 22px;
+    gap: 16px;
+    margin-top: 16px;
   }
   .modes > div {
     background: var(--bg-panel);
     border-radius: 12px;
-    padding: 20px;
+    padding: 16px 18px;
     border-top: 3px solid var(--accent);
   }
   .modes h4 {
@@ -618,12 +625,12 @@
     font-weight: 500;
     font-size: 19px;
     color: var(--headline);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     line-height: 1.22;
   }
   .modes p {
-    font-size: 13.5px;
-    line-height: 1.55;
+    font-size: 13px;
+    line-height: 1.5;
     margin-bottom: 0;
   }
 
@@ -633,24 +640,24 @@
 
   /* === Unlock banner (thin-bordered box at end of unlock content) === */
   .unlock-banner {
-    margin-top: 22px;
-    padding: 18px 26px;
+    margin-top: 18px;
+    padding: 16px 24px;
     border: 1px solid var(--accent);
     border-radius: 8px;
     background: transparent;
   }
   .unlock-banner p {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.4;
+    font-style: normal;
+    font-size: 21px;
+    line-height: 1.34;
     color: var(--headline);
     margin: 0;
     text-align: center;
   }
   @media (max-width: 880px) {
-    .unlock-banner { padding: 14px 18px; margin-top: 18px; }
-    .unlock-banner p { font-size: 15px; }
+    .unlock-banner { padding: 14px 18px; margin-top: 14px; }
+    .unlock-banner p { font-size: 17px; }
   }
 
   /* === Phases === */
@@ -740,15 +747,19 @@
   .phase-detail .row .body li {
     padding-left: 14px;
     position: relative;
-    margin-bottom: 3px;
-    line-height: 1.45;
+    margin-bottom: 2px;
+    line-height: 1.42;
   }
   .phase-detail .row .body li:last-child { margin-bottom: 0; }
   .phase-detail .row .body li::before {
-    content: '—';
+    content: '';
     position: absolute;
     left: 0;
-    color: var(--accent);
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
   }
 
   @media (max-width: 760px) {
@@ -771,11 +782,11 @@
   .closing h1.thanks {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
-    font-size: clamp(72px, 12vw, 168px);
+    font-size: clamp(56px, 9vw, 120px);
     line-height: 1;
     color: var(--headline);
     letter-spacing: -0.02em;
-    margin-bottom: 32px;
+    margin: 0;
   }
   .closing p.sig {
     font-family: 'Cormorant Garamond', serif;
@@ -957,9 +968,7 @@
   <div class="container">
     <div class="eyebrow">The Vision</div>
     <h2 class="serif">An art map for San Francisco that feels like the city itself—<em>inspiring, generous, delightful, and unafraid of beauty</em>.</h2>
-    <p>For all the energy in the city's cultural life, there is no comprehensive way to find and engage with it.</p>
-
-    <p>Museums, galleries, pop-ups, artist studios, public art, AR and digital-art activations all coexist in San Francisco, but none of them are legible to one another, let alone to the local audience or curious visitor.</p>
+    <p>For all the energy in the city's cultural life, there is no comprehensive way to find and engage with it. Museums, galleries, pop-ups, artist studios, public art, AR and digital-art activations all coexist in San Francisco, but none of them are legible to one another, let alone to the local audience or curious visitor.</p>
 
     <p>The middle of the funnel is missing—the layer that takes a person from "I would like to spend an afternoon with art" to actually walking into the right room.</p>
 
@@ -1114,7 +1123,7 @@
       <div class="step">
         <div class="num mono">III.</div>
         <h4 class="serif">Reward</h4>
-        <p>Virtuous gamification—streaks, badges, etc.—turns completed itineraries and repeat visits into status. Light-lift reviews become attention-directing signals for people in one's network. The encounter becomes the start of a relationship; the map becomes an experience log.</p>
+        <p>Virtuous gamification—streaks, badges, etc.—turns completed itineraries and repeat visits into status. Light-lift reviews become attention-directing signals for people in one's network. The encounter begins a relationship; the map becomes an experience log.</p>
       </div>
     </div>
 
@@ -1212,12 +1221,12 @@
         <div class="label">Scope</div>
         <div class="body">
           <ul>
-            <li>20–30 stakeholder interviews—institutions, galleries, artists, civic actors, tech operators</li>
-            <li>A peer landscape—what's been tried, what works, what doesn't</li>
-            <li>A definitive product scope for the Phase 2 prototype</li>
-            <li>A partnership architecture—which technology partners, in which sequence</li>
-            <li>A governance and sustaining-model memo with three or four credible options</li>
-            <li>A Phase 2 proposal with timeline, team, and budget</li>
+            <li>20–30 stakeholder interviews across institutions, galleries, artists, civic, tech</li>
+            <li>Peer landscape and best-practice synthesis</li>
+            <li>Product scope for the Phase 2 prototype</li>
+            <li>Partnership architecture and sequence</li>
+            <li>Governance and sustaining-model options</li>
+            <li>Phase 2 proposal with timeline, team, budget</li>
           </ul>
         </div>
       </div>
@@ -1304,41 +1313,9 @@
     }
   });
 
-  // Wheel / trackpad: free-scroll while actively scrolling, snap to nearest section after full stop
-  let wheelEndTimer;
-  let lastWheelTime = 0;
-
-  function snapToNearest() {
-    const scrollY = window.scrollY;
-    let nearestIdx = 0;
-    let nearestDistance = Infinity;
-    sections.forEach((s, i) => {
-      const d = Math.abs(s.offsetTop - scrollY);
-      if (d < nearestDistance) {
-        nearestDistance = d;
-        nearestIdx = i;
-      }
-    });
-    if (Math.abs(sections[nearestIdx].offsetTop - scrollY) > 4) {
-      current = nearestIdx;
-      sections[nearestIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
-      updateUI();
-    }
-  }
-
-  // Desktop only: longer delay (320ms) lets the user pause/hold without snapping
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  if (!isMobile) {
-    window.addEventListener('wheel', () => {
-      lastWheelTime = Date.now();
-      clearTimeout(wheelEndTimer);
-      wheelEndTimer = setTimeout(() => {
-        if (Date.now() - lastWheelTime >= 280) {
-          snapToNearest();
-        }
-      }, 320);
-    }, { passive: true });
-  }
+  // Snapping is handled by CSS `scroll-snap-type: y proximity` natively — the browser
+  // snaps only when scroll velocity drops below its internal threshold, which means
+  // the user can pause anywhere mid-scroll and stay there without forced snapping.
 
   // On mobile, let the browser handle scroll/snap natively for tall sections.
   // Users can freely scroll within a section that overflows; the browser snaps
