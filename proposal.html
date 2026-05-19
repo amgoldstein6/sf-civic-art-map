@@ -170,7 +170,7 @@
   section {
     min-height: 100vh;
     height: 100vh;
-    padding: calc(var(--nav-h) + 40px) 32px 48px;
+    padding: calc(var(--nav-h) + 20px) 32px 24px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     display: flex;
@@ -182,8 +182,8 @@
   section.hero, section.closing {
     justify-content: center;
   }
-  @media (max-height: 700px) {
-    section { height: auto; overflow: visible; }
+  @media (max-height: 760px) {
+    section { padding-top: calc(var(--nav-h) + 12px); padding-bottom: 18px; }
   }
   section.alt {
     background: var(--bg-alt);
@@ -258,42 +258,33 @@
     font-weight: 400;
   }
   p.diagnosis {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 26px;
-    line-height: 1.18;
+    font-size: 15px;
+    line-height: 1.58;
     color: var(--accent);
-    margin: 22px 0;
-    font-weight: 500;
-    letter-spacing: -0.005em;
+    margin: 14px 0;
+    font-weight: 600;
   }
   .vision-list {
     list-style: none;
     padding: 0;
-    margin: 0 0 22px;
+    margin: 0 0 20px;
   }
   .vision-list li {
     font-size: 15px;
     line-height: 1.55;
     color: var(--text);
-    padding-left: 18px;
+    padding-left: 24px;
     margin-bottom: 10px;
     position: relative;
   }
   .vision-list li:last-child { margin-bottom: 0; }
   .vision-list li::before {
-    content: '';
+    content: '→';
     position: absolute;
     left: 0;
-    top: 9px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .vision-list .lbl {
+    top: 0;
+    color: var(--accent);
     font-weight: 600;
-    color: var(--headline);
   }
   p.vision-close {
     font-style: italic;
@@ -357,24 +348,24 @@
 
   /* === Three commitments (definition-list style) === */
   .commitments {
-    margin-top: 8px;
+    margin-top: 4px;
     display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 18px 44px;
+    grid-template-columns: 260px 1fr;
+    gap: 12px 44px;
     align-items: start;
   }
   .commitments .term {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-weight: 500;
-    font-size: 28px;
+    font-size: 26px;
     color: var(--accent);
-    line-height: 1.18;
+    line-height: 1.16;
     padding-top: 2px;
   }
   .commitments .desc {
-    font-size: 15px;
-    line-height: 1.58;
+    font-size: 14px;
+    line-height: 1.52;
     color: var(--text);
   }
   .commitments .row {
@@ -774,17 +765,27 @@
     text-align: center;
   }
   .closing .container {
-    max-width: 760px;
+    max-width: 820px;
     text-align: center;
+  }
+  .closing h1.thanks {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(72px, 12vw, 168px);
+    line-height: 1;
+    color: var(--headline);
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
   }
   .closing p.sig {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: clamp(28px, 3.4vw, 40px);
+    font-size: clamp(22px, 2.6vw, 30px);
     color: var(--headline);
-    line-height: 1.28;
+    line-height: 1.32;
     margin: 0 auto;
-    max-width: 720px;
+    max-width: 640px;
+    font-weight: 400;
   }
 
   /* footer-style sig inside closing */
@@ -950,16 +951,18 @@
   <div class="container">
     <div class="eyebrow">The Vision</div>
     <h2 class="serif">An art map for San Francisco that feels like the city itself—<em>inspiring, generous, delightful, and unafraid of beauty</em>.</h2>
-    <p>For all the energy in the city's cultural life, there is no comprehensive way to find and engage with it. Museums, galleries, nonprofits, pop-ups, artist studios, public art, AR and digital-art activations all coexist in San Francisco, but none of them are legible to one another, let alone to the local audience or curious visitor.</p>
+    <p>For all the energy in the city's cultural life, there is no comprehensive way to find and engage with it.</p>
+
+    <p>Museums, galleries, pop-ups, artist studios, public art, AR and digital-art activations all coexist in San Francisco, but none of them are legible to one another, let alone to the local audience or curious visitor.</p>
 
     <p>The middle of the funnel is missing—the layer that takes a person from "I would like to spend an afternoon with art" to actually walking into the right room.</p>
 
-    <p class="diagnosis serif">This is a market-design problem.</p>
+    <p class="diagnosis">This is a market-design problem.</p>
 
     <ul class="vision-list">
-      <li><span class="lbl">Traditional venues</span>—galleries, museums, nonprofits—are under structural pressure.</li>
-      <li><span class="lbl">Vital newcomers</span>—digital artists, immersive venues, AI-native creators—are operating without an infrastructure.</li>
-      <li><span class="lbl">Critics who previously served as wayfinding</span> have either vanished or been fragmented across algorithmic channels.</li>
+      <li>Traditional venues—galleries, museums, nonprofits—are under structural pressure.</li>
+      <li>Vital newcomers—digital artists, immersive venues, AI-native creators—are operating without an infrastructure.</li>
+      <li>Critics who previously served as wayfinding have either vanished or been fragmented across algorithmic channels.</li>
     </ul>
 
     <p class="vision-close serif">What's needed is not another platform that competes with these ecosystem participants, but a piece of civic infrastructure that connects them to one another and surfaces them to the audiences they need to thrive.</p>
@@ -1095,7 +1098,7 @@
       <div class="step">
         <div class="num mono">II.</div>
         <h4 class="serif">Encounter</h4>
-        <p>During the visit, the map is a helpful expert companion—audio guides tuned to one's preference, a wayfinding layer that respects the institution's authority, a tracker that charts itinerary completion. Not intrusive, always on call.</p>
+        <p>During the visit, the map is a helpful expert companion—audio guides tuned to one's preference, a wayfinding layer that respects the institution's authority, a tracker that charts visit completion. Not intrusive, always on call.</p>
       </div>
       <div class="arrow">
         <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1105,7 +1108,7 @@
       <div class="step">
         <div class="num mono">III.</div>
         <h4 class="serif">Reward</h4>
-        <p>Virtuous gamification—streaks, badges, taste graphs—turns completed itineraries and repeat visits into status. Light-lift reviews become attention-directing signals for people in one's network. The encounter becomes the start of a relationship; the map becomes a place to come back to.</p>
+        <p>Virtuous gamification—streaks, badges, etc.—turns completed itineraries and repeat visits into status. Light-lift reviews become attention-directing signals for people in one's network. The encounter becomes the start of a relationship; the map becomes an experience log.</p>
       </div>
     </div>
 
@@ -1235,7 +1238,8 @@
 <!-- ============ CLOSING ============ -->
 <section class="closing" id="closing">
   <div class="container">
-    <p class="sig serif">Thank you for the opportunity to prepare this. I'd love to talk whenever you're ready.</p>
+    <h1 class="thanks serif">Thank you.</h1>
+    <p class="sig serif">For the opportunity to prepare this. I'd love to talk whenever you're ready.</p>
   </div>
 </section>
 
@@ -1295,12 +1299,11 @@
     }
   });
 
-  // Wheel / trackpad: free-scroll while actively scrolling, snap to nearest section on release
+  // Wheel / trackpad: free-scroll while actively scrolling, snap to nearest section after full stop
   let wheelEndTimer;
-  let isSnapping = false;
+  let lastWheelTime = 0;
 
   function snapToNearest() {
-    if (isSnapping) return;
     const scrollY = window.scrollY;
     let nearestIdx = 0;
     let nearestDistance = Infinity;
@@ -1311,18 +1314,23 @@
         nearestIdx = i;
       }
     });
-    if (nearestIdx !== current || Math.abs(sections[nearestIdx].offsetTop - scrollY) > 4) {
-      isSnapping = true;
+    if (Math.abs(sections[nearestIdx].offsetTop - scrollY) > 4) {
       current = nearestIdx;
       sections[nearestIdx].scrollIntoView({ behavior: 'smooth', block: 'start' });
       updateUI();
-      setTimeout(() => { isSnapping = false; }, 600);
     }
   }
 
+  // Longer delay (320ms) lets the user pause/hold without snapping; snaps only on full stop
   window.addEventListener('wheel', () => {
+    lastWheelTime = Date.now();
     clearTimeout(wheelEndTimer);
-    wheelEndTimer = setTimeout(snapToNearest, 140);
+    wheelEndTimer = setTimeout(() => {
+      // Only snap if we've truly stopped scrolling (no wheel events in the last 280ms)
+      if (Date.now() - lastWheelTime >= 280) {
+        snapToNearest();
+      }
+    }, 320);
   }, { passive: true });
 
   // Touch swipe (mobile)
