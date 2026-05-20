@@ -647,6 +647,16 @@
     letter-spacing: 0.02em;
   }
   section.alt .lenses .chip { background: white; }
+  .lenses.lenses-center {
+    margin-top: 26px;
+    justify-content: center;
+  }
+  .lenses-caption {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align: center;
+  }
 
   /* === Unlock contribution modes === */
   .modes {
@@ -948,7 +958,23 @@
       width: 100%;
     }
     .journey .step h4 { font-size: 26px; }
-    .lenses { justify-content: flex-start !important; }
+    .lenses {
+      gap: 5px;
+      flex-wrap: nowrap;
+      justify-content: center;
+    }
+    .lenses .chip {
+      font-size: 10px;
+      padding: 4px 8px;
+      letter-spacing: 0.01em;
+    }
+    .lenses.lenses-center { margin-top: 22px; }
+    .lenses-caption {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text);
+      margin-top: 14px;
+    }
 
     /* Unlock */
     .modes { grid-template-columns: 1fr; gap: 12px; }
@@ -1083,7 +1109,7 @@
         <h4 class="serif">The civic moment</h4>
         <ul class="why-list">
           <li>San Francisco's tech leadership has never been more invested in making the city a place worth living in—not just as philanthropy, but because the quality of civic life is foundational to attracting and keeping top talent.</li>
-          <li>Voices like Patrick Collison's <a href="https://newaesthetics.art/" target="_blank" rel="noopener">call for a new aesthetic</a> and Packy McCormick's <a href="https://www.notboring.co/p/modern-magnificenza" target="_blank" rel="noopener">appeal for magnificenza</a> signal a hunger across the tech community for positive, generous expressions of the technological age.</li>
+          <li>Voices like Patrick Collison's <a href="https://newaesthetics.art/" target="_blank" rel="noopener">call for new aesthetics</a> and Packy McCormick's appeal for <a href="https://www.notboring.co/p/modern-magnificenza" target="_blank" rel="noopener">modern magnificenza</a> signal a hunger across the tech community for positive, generous expressions of the technological age.</li>
           <li>The right civic initiative, designed with discipline, can convene that goodwill into something durable, useful, and a credit to everyone involved.</li>
         </ul>
       </div>
@@ -1172,14 +1198,14 @@
       </div>
     </div>
 
-    <div class="lenses" style="margin-top: 26px; justify-content: center;">
+    <div class="lenses lenses-center">
       <span class="chip">Time</span>
       <span class="chip">Distance</span>
       <span class="chip">Mood</span>
       <span class="chip">Preferences</span>
       <span class="chip">Network</span>
     </div>
-    <p style="margin-top: 12px; font-size: 13px; color: var(--text-dim); text-align: center;">Composable interface primitives that combine into emergent journeys.</p>
+    <p class="lenses-caption">Composable interface primitives that combine into emergent journeys.</p>
   </div>
 </section>
 
