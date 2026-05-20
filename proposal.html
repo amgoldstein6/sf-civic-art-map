@@ -112,7 +112,7 @@
   /* === Deck controls === */
   .deck-controls {
     position: fixed;
-    bottom: 24px;
+    bottom: 14px;
     right: 28px;
     display: flex;
     align-items: center;
@@ -170,7 +170,7 @@
   section {
     min-height: 100vh;
     height: 100vh;
-    padding: calc(var(--nav-h) + 20px) 32px 24px;
+    padding: calc(var(--nav-h) + 14px) 32px 64px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     display: flex;
@@ -183,7 +183,7 @@
     justify-content: center;
   }
   @media (max-height: 760px) {
-    section { padding-top: calc(var(--nav-h) + 12px); padding-bottom: 18px; }
+    section { padding-top: calc(var(--nav-h) + 10px); padding-bottom: 54px; }
   }
   section.alt {
     background: var(--bg-alt);
@@ -286,18 +286,35 @@
     color: var(--accent);
     font-weight: 600;
   }
-  p.vision-close {
+  .thesis {
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+    margin: 22px 0 0;
+  }
+  .thesis-arrow {
+    flex-shrink: 0;
+    width: 26px;
+    align-self: stretch;
+    color: var(--accent);
+    display: flex;
+    align-items: stretch;
+  }
+  .thesis-arrow svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .thesis p {
+    flex: 1;
     font-family: 'Cormorant Garamond', serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 19px;
-    line-height: 1.36;
+    font-size: 25px;
+    line-height: 1.32;
     color: var(--headline);
-    margin: 18px 0 0;
-    border: 1px solid var(--accent);
-    border-radius: 8px;
-    padding: 14px 22px;
-    text-align: center;
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    align-self: center;
   }
   p.byline {
     font-family: 'JetBrains Mono', monospace;
@@ -462,7 +479,7 @@
     background: var(--bg);
     border: 1px solid var(--rule);
     border-radius: 10px;
-    padding: 14px 16px 16px;
+    padding: 12px 14px 14px;
     transition: border-color 200ms ease, transform 200ms ease;
   }
   section.alt .audience-grid .card { background: var(--bg); }
@@ -481,10 +498,10 @@
   }
   .audience-grid .card .name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 23px;
+    font-size: 21px;
     color: var(--headline);
     line-height: 1.14;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-weight: 500;
     letter-spacing: -0.005em;
   }
@@ -617,20 +634,20 @@
   .modes > div {
     background: var(--bg-panel);
     border-radius: 12px;
-    padding: 16px 18px;
+    padding: 14px 16px;
     border-top: 3px solid var(--accent);
   }
   .modes h4 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 500;
-    font-size: 19px;
+    font-size: 22px;
     color: var(--headline);
     margin-bottom: 8px;
     line-height: 1.22;
   }
   .modes p {
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.48;
     margin-bottom: 0;
   }
 
@@ -640,8 +657,8 @@
 
   /* === Unlock banner (thin-bordered box at end of unlock content) === */
   .unlock-banner {
-    margin-top: 18px;
-    padding: 16px 24px;
+    margin-top: 14px;
+    padding: 14px 22px;
     border: 1px solid var(--accent);
     border-radius: 8px;
     background: transparent;
@@ -649,33 +666,33 @@
   .unlock-banner p {
     font-family: 'Cormorant Garamond', serif;
     font-style: normal;
-    font-size: 21px;
-    line-height: 1.34;
+    font-size: 19px;
+    line-height: 1.32;
     color: var(--headline);
     margin: 0;
     text-align: center;
   }
   @media (max-width: 880px) {
-    .unlock-banner { padding: 14px 18px; margin-top: 14px; }
-    .unlock-banner p { font-size: 17px; }
+    .unlock-banner { padding: 12px 18px; margin-top: 12px; }
+    .unlock-banner p { font-size: 16px; }
   }
 
   /* === Phases === */
   .phases {
-    margin: 18px 0 0;
+    margin: 14px 0 0;
   }
   .phase {
     display: grid;
     grid-template-columns: 72px 1fr;
     gap: 22px;
-    padding: 16px 0;
+    padding: 12px 0;
     border-bottom: 1px solid var(--rule);
     align-items: start;
   }
   .phase:last-child { border-bottom: none; }
   .phase .num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
+    font-size: 40px;
     line-height: 1;
     color: var(--accent);
     font-weight: 500;
@@ -686,21 +703,21 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text-dim);
-    margin-bottom: 4px;
+    margin-bottom: 3px;
     font-weight: 500;
   }
   .phase h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
+    font-size: 21px;
     color: var(--headline);
-    margin: 0 0 6px;
+    margin: 0 0 4px;
     font-weight: 500;
     line-height: 1.2;
   }
   .phase p {
     font-size: 13.5px;
-    line-height: 1.5;
-    margin-bottom: 6px;
+    line-height: 1.46;
+    margin-bottom: 4px;
   }
 
   @media (max-width: 760px) {
@@ -713,15 +730,15 @@
     background: var(--bg);
     border: 1px solid var(--rule);
     border-radius: 12px;
-    padding: 14px 22px;
-    margin-top: 14px;
+    padding: 8px 22px;
+    margin-top: 12px;
   }
   section.alt .phase-detail { background: white; }
   .phase-detail .row {
     display: grid;
     grid-template-columns: 140px 1fr;
     gap: 22px;
-    padding: 8px 0;
+    padding: 6px 0;
     border-bottom: 1px solid var(--rule);
     font-size: 13px;
   }
@@ -867,7 +884,9 @@
     /* Vision */
     p.diagnosis { font-size: 22px; margin: 16px 0; }
     .vision-list li { font-size: 14px; }
-    p.vision-close { font-size: 16px; }
+    .thesis { gap: 16px; margin-top: 18px; }
+    .thesis-arrow { width: 18px; }
+    .thesis p { font-size: 18px; line-height: 1.34; }
 
     /* Three commitments */
     .commitments { grid-template-columns: 1fr; gap: 6px 0; }
@@ -968,11 +987,18 @@
   <div class="container">
     <div class="eyebrow">The Vision</div>
     <h2 class="serif">An art map for San Francisco that feels like the city itself—<em>inspiring, generous, delightful, and unafraid of beauty</em>.</h2>
-    <p>For all the energy in the city's cultural life, there is no comprehensive way to find and engage with it. Museums, galleries, pop-ups, artist studios, public art, AR and digital-art activations all coexist, but none are legible to one another—let alone to the local audience or curious visitor. The middle of the funnel is missing.</p>
+    <p>For all the energy in the city's cultural life, there is no comprehensive way to find and engage with it. Museums, galleries, pop-ups, artist studios, public art, AR and digital-art activations all coexist, but none are legible to one another—let alone to the local audience or curious visitor.</p>
 
-    <p>It's a market-design problem. Traditional venues are under structural pressure. Vital newcomers are operating without an infrastructure. Critics who served as wayfinding have either vanished or been fragmented across algorithmic channels.</p>
+    <p>This is a market-design problem. The traditional venues—galleries, museums, nonprofits—are under structural pressure. Vital newcomers—digital artists, immersive venues, AI-native creators—are operating without an infrastructure. Critics who previously served as wayfinding mechanisms have either vanished or been fragmented across algorithmic channels.</p>
 
-    <p class="vision-close serif">What's needed is not another platform that competes with these ecosystem participants, but a piece of civic infrastructure that connects them to one another and surfaces them to the audiences they need to thrive.</p>
+    <div class="thesis">
+      <div class="thesis-arrow">
+        <svg viewBox="0 0 28 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M0 0 L10 0 L10 84 L28 100 L10 116 L10 200 L0 200 Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <p>What's needed is not another platform that competes with these ecosystem participants, but a piece of civic infrastructure that connects them to one another and surfaces them to the audiences they need to thrive.</p>
+    </div>
   </div>
 </section>
 
@@ -1015,13 +1041,13 @@
         <ul class="why-list">
           <li>San Francisco's gallery and institutional ecosystem has been reshaped by a decade of rent pressure, the long tail of the pandemic, and the recent transitions at SFAI, ICA SF, and elsewhere.</li>
           <li>The institutions that remain are working harder than ever to reach audiences while operating in relative isolation from one another.</li>
-          <li>The city's cultural map is fragmenting at exactly the moment when Mayor Lurie has made cultural revitalization a stated priority and visitors most want a reason to come.</li>
+          <li>The city's cultural map is fragmenting at exactly the moment when Mayor Lurie has made cultural revitalization a stated priority.</li>
         </ul>
       </div>
       <div>
         <h4 class="serif">The&nbsp;technology moment</h4>
         <ul class="why-list">
-          <li>For the first time, the technology to actually solve the interpretation problem exists. AI can read a wall label, a press release, an artist's voice memo, and a curator's catalogue together—and offer the visitor a personalized way in.</li>
+          <li>For the first time, the technology to actually unlock the art experience exists. AI can read a wall label, a press release, an artist's Q&amp;A, and a curator's catalogue together—and offer the visitor a personalized way in.</li>
           <li>AR glasses and spatial-audio earbuds are about to make on-site interpretation effortless. Autonomous vehicles will reshape how visitors move through the city.</li>
           <li>The next twenty-four months are when these capabilities go from emerging to ambient, and the city that builds the showcase first will set the template.</li>
         </ul>
@@ -1029,8 +1055,8 @@
       <div>
         <h4 class="serif">The civic moment</h4>
         <ul class="why-list">
-          <li>San Francisco's tech leadership has never been more interested in contributing to the cultural life of the city in ways that aren't transactional.</li>
-          <li>Many of the most influential people in that community are art people, deeply. They collect, they sit on boards, they think about culture seriously, and they want a project worthy of their participation.</li>
+          <li>San Francisco's tech leadership has never been more invested in making the city a place worth living in—not just as philanthropy, but because the quality of civic life is foundational to attracting and keeping the talent their companies depend on.</li>
+          <li>Voices like Patrick Collison's call for a new aesthetic and Packy McCormick's appeal for magnificenza signal a hunger across the tech community for positive, generous expressions of the technological age—and a yearning for civic projects worthy of the moment.</li>
           <li>The right civic initiative, designed with discipline, can convene that goodwill into something durable, useful, and a credit to everyone involved.</li>
         </ul>
       </div>
@@ -1066,16 +1092,16 @@
       <div class="card">
         <div class="role">Ambitious learner</div>
         <div class="name serif">The student on a budget</div>
-        <p>Curious, ambitious, and stretching the most out of every cultural dollar. Needs to know what's free, what's near transit, what's worth the time, and what will sharpen the eye for a lifetime of looking.</p>
+        <p>Curious, idea-hungry, and stretching the most out of every cultural dollar. Needs to know what's free, what's near transit, what's worth the time, and what will sharpen the eye for a lifetime of looking.</p>
       </div>
       <div class="card">
         <div class="role">Training taste</div>
-        <div class="name serif">The tech worker seeking inspiration</div>
+        <div class="name serif">The tech worker seeking inspo</div>
         <p>Building the next generation of tools and looking for the cultural input that sharpens taste. Wants to experiment with new interpretive technologies, encounter unexpected work, and find a way into a community that the office doesn't provide.</p>
       </div>
       <div class="card">
         <div class="role">Visitor with a weekend</div>
-        <div class="name serif">The tourist</div>
+        <div class="name serif">The tourist on the town</div>
         <p>Has a few hours, doesn't know the neighborhoods, wants to see the best of SF. Needs a curated, walkable, achievable itinerary that respects their time and rewards their curiosity.</p>
       </div>
     </div>
@@ -1150,7 +1176,7 @@
       </div>
       <div>
         <h4 class="serif">As founding stakeholders</h4>
-        <p>The map is designed to scale, but not extractively—a civic utility with a sustaining business model that can power potential expansion without compromising mission. The companies who help shape it here become the founding stakeholders of a new category of cultural infrastructure with real upside in the long arc.</p>
+        <p>The map is designed to scale, but not extractively—a civic utility with a sustaining business model that can power potential expansion without compromising mission. The companies who help shape it here become the founding stakeholders of a new category of cultural infrastructure.</p>
       </div>
     </div>
 
@@ -1172,9 +1198,9 @@
       <div class="phase">
         <div class="num serif">01</div>
         <div>
-          <div class="label">Discovery · 4 weeks</div>
+          <div class="label">Discovery · 4–6 weeks</div>
           <h3 class="serif">Listen, scope, and lay the foundation.</h3>
-          <p>A focused engagement that interviews the stakeholders, surveys the peer landscape, identifies the partner-integration vectors, and produces a definitive scope-and-plan document for Phase 2. Light-footprint, decisive, designed so anyone reading it can see exactly what they would be funding and why.</p>
+          <p>A focused engagement that interviews the stakeholders, surveys the peer landscape, identifies the partner-integration vectors, and produces a draft scope-and-plan document for Phase 2. Light-footprint, decisive, designed so anyone reading it can see exactly what they would be funding and why.</p>
         </div>
       </div>
 
@@ -1206,7 +1232,7 @@
       <div class="eyebrow">Phase 1 · The Ask</div>
       <h2 class="serif">A focused discovery sprint—enough to know exactly what we're building and what it will take.</h2>
     </div>
-    <p>Phase 1 is option-pricing. The proposal is to fund a structured four-week discovery sprint that convenes the right stakeholders, surfaces what the city actually needs, and produces a definitive scope and Phase 2 proposal you can react to with full information.</p>
+    <p>Phase 1 is option-pricing. The proposal is to fund a structured 4–6 week discovery sprint that convenes the right stakeholders, surfaces what the city actually needs, and produces a draft scope and Phase 2 proposal you can react to with full information.</p>
 
     <div class="phase-detail">
       <div class="row">
@@ -1224,15 +1250,15 @@
       </div>
       <div class="row">
         <div class="label">Timeline</div>
-        <div class="body">Four weeks from kickoff to delivered document. A working draft circulates at the halfway point.</div>
+        <div class="body">Four to six weeks from kickoff to delivered document.</div>
       </div>
       <div class="row">
         <div class="label">Fee</div>
-        <div class="body">$50,000 fixed, with travel and direct expenses passed through at cost (capped at $5,000).</div>
+        <div class="body">$50,000 fixed, plus travel and expenses.</div>
       </div>
       <div class="row">
         <div class="label">What you provide</div>
-        <div class="body">Time for vision alignment, input, and ideas; funding; introductions where you'd like to make them.</div>
+        <div class="body">Vision alignment, input, and ideas; funding; introductions to art and tech stakeholders.</div>
       </div>
       <div class="row">
         <div class="label">What happens at the end</div>
