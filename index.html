@@ -1000,6 +1000,41 @@
     .hero h1 { font-size: 28px; }
     h2 { font-size: 22px !important; }
   }
+
+  /* Short viewports — landscape phones, anything with limited vertical room.
+     Switches sections from fixed 100vh + overflow:hidden to scroll-as-needed
+     so content can never get clipped by the short screen. */
+  @media (max-height: 500px) {
+    body {
+      scroll-snap-type: y proximity;
+    }
+    section {
+      height: auto;
+      min-height: 100vh;
+      overflow: visible;
+      padding: calc(var(--nav-h) + 12px) 32px 56px;
+      scroll-snap-stop: normal;
+    }
+    section.hero, section.closing {
+      min-height: 100vh;
+      justify-content: center;
+    }
+    nav.top { height: 56px; }
+    section { padding-top: calc(56px + 14px); }
+
+    /* Tighten type so each slide reads cleanly in landscape */
+    .hero h1 { font-size: clamp(22px, 3.8vw, 38px); margin-bottom: 16px; }
+    .hero .dek { font-size: 15px; margin-bottom: 20px; }
+    .hero .eyebrow { margin-bottom: 14px; }
+    h2 { font-size: clamp(20px, 2.8vw, 30px) !important; margin-bottom: 14px; }
+    h3 { font-size: 18px; }
+    .thesis p { font-size: 18px; line-height: 1.32; }
+    .three-up h4 { font-size: 22px; }
+    .modes h4 { font-size: 19px; }
+    .audience-grid .card .name { font-size: 18px; }
+    .phase .num { font-size: 32px; }
+    .closing h1.thanks { font-size: clamp(48px, 8vw, 96px); }
+  }
 </style>
 </head>
 <body>
@@ -1405,8 +1440,12 @@
       updateUI();
     }
   }
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  if (!isMobile) {
+  // Disable wheel snap on touch devices (phones, tablets) and on short viewports
+  // (landscape phones). Touch scrolling already has its own momentum/inertia
+  // behavior, and short viewports want free scroll, not snap-back.
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  const isShort = window.matchMedia('(max-height: 500px)').matches;
+  if (!isTouch && !isShort) {
     window.addEventListener('wheel', () => {
       clearTimeout(wheelEndTimer);
       wheelEndTimer = setTimeout(snapToNearest, 300);
