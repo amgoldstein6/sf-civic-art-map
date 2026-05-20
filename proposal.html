@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="googlebot" content="noindex,nofollow,noarchive">
 <title>A Civic Art Utility for San Francisco</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1457,6 +1459,17 @@
   // to the next section when they cross the boundary.
 
   updateUI();
+
+  // Per-recipient tagging. Append ?r=<slug> to the share URL to mark who you
+  // sent it to (e.g. ?r=rappaport). Captured here so it's ready when analytics
+  // (Plausible / Goatcounter / Cloudflare Worker / etc.) is wired in. Until
+  // then it sits on the document as a data-recipient attribute and prints to
+  // the console so you can verify the link is being opened with the tag.
+  const recipientParam = new URLSearchParams(window.location.search).get('r');
+  if (recipientParam) {
+    document.documentElement.dataset.recipient = recipientParam;
+    console.log('[deck] recipient:', recipientParam);
+  }
 </script>
 
 </body>
