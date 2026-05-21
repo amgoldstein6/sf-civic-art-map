@@ -385,17 +385,17 @@ def slide_experience(prs):
         p = ctf.add_paragraph()
         run(p, desc, font=SANS, size=10.5, color=TEXT)
 
-    # Lenses chips
+    # Lenses chips — sized to their text content, like the web pill widths
     chips = ["Time", "Distance", "Mood", "Preferences", "Network"]
-    chip_y = Inches(6.85)
-    chip_w = Inches(1.05)
-    chip_h = Inches(0.32)
-    gap_x = Inches(0.08)
-    total_w = chip_w * len(chips) + gap_x * (len(chips) - 1)
-    start_x = (SLIDE_W - total_w) / 2
-    for i, chip in enumerate(chips):
-        cx = start_x + (chip_w + gap_x) * i
-        shp = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, cx, chip_y, chip_w, chip_h)
+    chip_h = Inches(0.30)
+    gap_x = Inches(0.10)
+    # JetBrains Mono at 10pt: ~5.7pt per char; +14pt horizontal padding
+    chip_widths = [Inches((len(c) * 5.7 + 16) / 72) for c in chips]
+    total_w = sum(chip_widths, Inches(0)) + gap_x * (len(chips) - 1)
+    chip_y = Inches(6.70)
+    cx = (SLIDE_W - total_w) / 2
+    for chip, cw in zip(chips, chip_widths):
+        shp = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, cx, chip_y, cw, chip_h)
         shp.adjustments[0] = 0.5
         shp.fill.solid()
         shp.fill.fore_color.rgb = BG
@@ -403,11 +403,21 @@ def slide_experience(prs):
         shp.line.width = Pt(0.5)
         shp.shadow.inherit = False
         ctf = shp.text_frame
-        ctf.margin_left = Pt(2); ctf.margin_right = Pt(2)
+        ctf.margin_left = Pt(4); ctf.margin_right = Pt(4)
         ctf.margin_top = Pt(0); ctf.margin_bottom = Pt(0)
+        ctf.vertical_anchor = MSO_ANCHOR.MIDDLE
         p = ctf.paragraphs[0]
         p.alignment = PP_ALIGN.CENTER
         run(p, chip, font=MONO, size=10, color=TEXT)
+        cx += cw + gap_x
+
+    # Caption under the lenses
+    cap_y = chip_y + chip_h + Inches(0.12)
+    cap_tf = add_text_box(s, PAD_X, cap_y, CONTENT_W, Inches(0.3))
+    p = cap_tf.paragraphs[0]
+    p.alignment = PP_ALIGN.CENTER
+    run(p, "Composable interface primitives that combine into emergent journeys.",
+        font=SANS, size=11, italic=True, color=TEXT_DIM)
 
 
 def slide_unlock(prs):
@@ -515,7 +525,7 @@ def slide_how(prs):
 def slide_phase1(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     set_bg(s, BG_ALT)
-    tf = add_text_box(s, PAD_X, PAD_TOP, CONTENT_W, Inches(2.1))
+    tf = add_text_box(s, PAD_X, PAD_TOP, CONTENT_W, Inches(2.4))
     eyebrow_para(tf, "Phase 1 · The ask", first=True)
     h2_para(tf,
             "A focused discovery sprint—enough to know exactly what we're "
@@ -528,6 +538,9 @@ def slide_phase1(prs):
               "and Phase 2 proposal you can react to with full information.",
               size=12, color=TEXT, space=10)
 
+    # Content-sized row heights — Scope needs more room for its 6 bullets,
+    # the single-line rows hug their content. Last-row gets a tiny bit extra
+    # so its 2-line description doesn't crowd the frame bottom.
     rows = [
         ("Scope", [
             "20–30 stakeholder interviews across institutions, galleries, artists, civic, tech",
@@ -536,36 +549,42 @@ def slide_phase1(prs):
             "Partnership architecture and sequence",
             "Governance and sustaining-model options",
             "Phase 2 proposal with timeline, team, budget",
-        ]),
-        ("Timeline", ["Four to six weeks from kickoff to delivered document."]),
-        ("Fee", ["$75,000 fixed, plus travel and expenses."]),
-        ("Payment", ["Half upon commencement, half upon completion."]),
-        ("What you provide", ["Vision alignment, input, and ideas; funding; introductions to art and tech stakeholders."]),
-        ("What happens at the end", ["You have a document you can read, react to, and decide on without commitment. If Phase 2 is the right move, we proceed."]),
+        ], Inches(1.10)),
+        ("Timeline", ["Four to six weeks from kickoff to delivered document."], Inches(0.30)),
+        ("Fee", ["$75,000 fixed, plus travel and expenses."], Inches(0.30)),
+        ("Payment", ["Half upon commencement, half upon completion."], Inches(0.30)),
+        ("What you provide", ["Vision alignment, input, and ideas; funding; introductions to art and tech stakeholders."], Inches(0.40)),
+        ("What happens at the end", ["You have a document you can read, react to, and decide on without commitment. If Phase 2 is the right move, we proceed."], Inches(0.50)),
     ]
+
+    # Compute total frame height from row heights + rules + padding
+    inner_pad = Inches(0.18)
+    rule_thick = Pt(0.5)
+    rows_total = sum(h for _, _, h in rows)
+    rules_total = rule_thick * (len(rows) - 1)
+    detail_h = rows_total + rules_total + 2 * inner_pad
+    detail_y = Inches(3.55)
+
     # Frame
-    detail_y = Inches(4.0)
-    detail_h = Inches(3.2)
     add_rect(s, PAD_X, detail_y, CONTENT_W, detail_h, fill=BG, line=RULE)
 
-    inner_x = PAD_X + Inches(0.18)
-    inner_w = CONTENT_W - Inches(0.36)
+    inner_x = PAD_X + inner_pad
+    inner_w = CONTENT_W - 2 * inner_pad
     label_w = Inches(2.0)
-    body_x = inner_x + label_w + Inches(0.2)
-    body_w = inner_w - label_w - Inches(0.2)
+    body_x = inner_x + label_w + Inches(0.25)
+    body_w = inner_w - label_w - Inches(0.25)
 
-    # compute row positions
-    n = len(rows)
-    avail = detail_h - Inches(0.2)
-    row_h = avail / n
-    for i, (label, items) in enumerate(rows):
-        ry = detail_y + Inches(0.1) + row_h * i
-        l_tf = add_text_box(s, inner_x, ry, label_w, row_h, anchor=MSO_ANCHOR.TOP)
+    # Lay out rows top-down with content-driven heights
+    cur_y = detail_y + inner_pad
+    for i, (label, items, h) in enumerate(rows):
+        # Label
+        l_tf = add_text_box(s, inner_x, cur_y, label_w, h, anchor=MSO_ANCHOR.TOP)
         p = l_tf.paragraphs[0]
         run(p, label.upper(), font=MONO, size=9, bold=True, color=ACCENT,
             char_spacing=2.0)
 
-        b_tf = add_text_box(s, body_x, ry, body_w, row_h, anchor=MSO_ANCHOR.TOP)
+        # Body
+        b_tf = add_text_box(s, body_x, cur_y, body_w, h, anchor=MSO_ANCHOR.TOP)
         if len(items) == 1:
             p = b_tf.paragraphs[0]
             run(p, items[0], font=SANS, size=10.5, color=TEXT)
@@ -573,10 +592,13 @@ def slide_phase1(prs):
             for j, it in enumerate(items):
                 p = (b_tf.paragraphs[0] if j == 0 else b_tf.add_paragraph())
                 run(p, "•  ", font=SANS, size=10, bold=True, color=ACCENT)
-                run(p, it, font=SANS, size=10, color=TEXT, space_after=Pt(1))
+                run(p, it, font=SANS, size=10, color=TEXT, space_after=Pt(2))
 
-        if i < n - 1:
-            add_thin_rule(s, inner_x, ry + row_h - Inches(0.04), inner_w)
+        cur_y += h
+
+        if i < len(rows) - 1:
+            add_thin_rule(s, inner_x, cur_y, inner_w, height=rule_thick)
+            cur_y += rule_thick
 
 
 def slide_closing(prs):
