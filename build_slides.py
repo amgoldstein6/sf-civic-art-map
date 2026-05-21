@@ -175,7 +175,18 @@ def add_thin_rule(slide, x, y, w, color=RULE, height=Pt(0.75)):
 
 
 def add_brand_strip(slide):
-    """Top-of-slide brand mark mirroring the website's nav."""
+    """Top-of-slide brand mark mirroring the website's nav.
+
+    Always renders on cream (BG) regardless of section bg, matching the way
+    the web nav stays cream while .alt sections shift to BG_ALT below it.
+    """
+    # Cream rectangle covering the strip area
+    bar = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, SLIDE_W, Inches(0.82))
+    bar.fill.solid()
+    bar.fill.fore_color.rgb = BG
+    bar.line.fill.background()
+    bar.shadow.inherit = False
+    # Brand text on top
     tf = add_text_box(slide, PAD_X, Inches(0.30), Inches(8), Inches(0.35),
                       anchor=MSO_ANCHOR.MIDDLE)
     p = tf.paragraphs[0]
@@ -366,21 +377,21 @@ def slide_why_now(prs):
         ]),
     ]
     col_w = (CONTENT_W - Inches(0.8)) / 3
-    y = Inches(3.45)
+    y = Inches(3.20)
     for i, (head, bullets) in enumerate(columns):
         x = PAD_X + (col_w + Inches(0.4)) * i
         # accent rule at top
         add_rect(s, x, y, col_w, Pt(2.5), fill=ACCENT)
-        ctf = add_text_box(s, x, y + Inches(0.14), col_w, Inches(3.5))
+        ctf = add_text_box(s, x, y + Inches(0.14), col_w, Inches(4.05))
         p = ctf.paragraphs[0]
-        p.line_spacing = 1.15
-        run(p, head, font=SERIF, size=24, color=HEADLINE, space_after=Pt(11))
+        p.line_spacing = 1.12
+        run(p, head, font=SERIF, size=21, color=HEADLINE, space_after=Pt(9))
         for b in bullets:
             bp = ctf.add_paragraph()
-            bp.line_spacing = 1.42
-            bp.space_after = Pt(8)
-            run(bp, "•  ", font=SANS, size=12, bold=True, color=ACCENT)
-            run(bp, b, font=SANS, size=12, color=TEXT)
+            bp.line_spacing = 1.30
+            bp.space_after = Pt(6)
+            run(bp, "•  ", font=SANS, size=10.5, bold=True, color=ACCENT)
+            run(bp, b, font=SANS, size=10.5, color=TEXT)
 
 
 def slide_who(prs):
@@ -472,14 +483,15 @@ def slide_experience(prs):
         p.line_spacing = 1.42
         run(p, desc, font=SANS, size=11.5, color=TEXT)
 
-    # Lenses chips — sized to their text content, like the web pill widths
+    # Lenses chips — sized to their text content, like the web pill widths.
+    # JetBrains Mono at 10pt is much wider than a basic char estimate; pad
+    # generously and disable wrap so the chip hugs the text without breaking.
     chips = ["Time", "Distance", "Mood", "Preferences", "Network"]
-    chip_h = Inches(0.30)
-    gap_x = Inches(0.10)
-    # JetBrains Mono at 10pt: ~5.7pt per char; +14pt horizontal padding
-    chip_widths = [Inches((len(c) * 5.7 + 16) / 72) for c in chips]
+    chip_h = Inches(0.34)
+    gap_x = Inches(0.12)
+    chip_widths = [Inches((len(c) * 8.0 + 28) / 72) for c in chips]
     total_w = sum(chip_widths, Inches(0)) + gap_x * (len(chips) - 1)
-    chip_y = Inches(6.10)
+    chip_y = Inches(6.05)
     cx = (SLIDE_W - total_w) / 2
     for chip, cw in zip(chips, chip_widths):
         shp = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, cx, chip_y, cw, chip_h)
@@ -490,7 +502,8 @@ def slide_experience(prs):
         shp.line.width = Pt(0.5)
         shp.shadow.inherit = False
         ctf = shp.text_frame
-        ctf.margin_left = Pt(4); ctf.margin_right = Pt(4)
+        ctf.word_wrap = False
+        ctf.margin_left = Pt(8); ctf.margin_right = Pt(8)
         ctf.margin_top = Pt(0); ctf.margin_bottom = Pt(0)
         ctf.vertical_anchor = MSO_ANCHOR.MIDDLE
         p = ctf.paragraphs[0]
@@ -512,14 +525,14 @@ def slide_unlock(prs):
     set_bg(s, BG_ALT)
     add_brand_strip(s)
 
-    head_tf = add_text_box(s, PAD_X, CONTENT_TOP, CONTENT_W, Inches(2.5))
+    head_tf = add_text_box(s, PAD_X, CONTENT_TOP, CONTENT_W, Inches(2.55))
     eyebrow_para(head_tf, "The Unlock", first=True)
     h2_para(head_tf,
             "San Francisco's tech leaders are art people. The map gives them "
             "a way to contribute that isn't writing a check.",
             size=H2_SIZE)
     p = head_tf.add_paragraph()
-    p.line_spacing = 1.42
+    p.line_spacing = 1.38
     p.space_before = Pt(4)
     run(p,
         "The founders building the next generation of technology are often "
@@ -527,7 +540,7 @@ def slide_unlock(prs):
         "They sit on cultural boards. They are surrounded by colleagues who "
         "would happily contribute talent, infrastructure, and access to a "
         "worthy civic project—if the project were ambitious enough to deserve it.",
-        font=SANS, size=BODY_SIZE, color=TEXT)
+        font=SANS, size=12, color=TEXT)
 
     modes = [
         ("As civic collaborators",
@@ -537,9 +550,9 @@ def slide_unlock(prs):
         ("As founding stakeholders",
          "The map is designed to scale, but not extractively—a civic utility with a sustaining business model. The companies who help shape it here become the founding stakeholders of a new category of cultural infrastructure."),
     ]
-    y = Inches(4.65)
+    y = Inches(3.95)
     col_w = (CONTENT_W - Inches(0.5)) / 3
-    panel_h = Inches(1.55)
+    panel_h = Inches(2.00)
     for i, (head, desc) in enumerate(modes):
         x = PAD_X + (col_w + Inches(0.25)) * i
         add_rect(s, x, y, col_w, panel_h, fill=BG_PANEL)
@@ -547,15 +560,15 @@ def slide_unlock(prs):
         ctf = add_text_box(s, x + Inches(0.18), y + Inches(0.14),
                            col_w - Inches(0.36), panel_h - Inches(0.28))
         p = ctf.paragraphs[0]
-        p.line_spacing = 1.18
-        run(p, head, font=SERIF, size=20, color=HEADLINE, space_after=Pt(6))
+        p.line_spacing = 1.16
+        run(p, head, font=SERIF, size=19, color=HEADLINE, space_after=Pt(6))
         p = ctf.add_paragraph()
-        p.line_spacing = 1.40
-        run(p, desc, font=SANS, size=11, color=TEXT)
+        p.line_spacing = 1.36
+        run(p, desc, font=SANS, size=10.5, color=TEXT)
 
     # Banner
-    by = Inches(6.40)
-    bh = Inches(0.65)
+    by = Inches(6.10)
+    bh = Inches(0.85)
     bshp = s.shapes.add_shape(MSO_SHAPE.RECTANGLE, PAD_X, by, CONTENT_W, bh)
     bshp.fill.background()
     bshp.line.color.rgb = ACCENT
@@ -596,31 +609,31 @@ def slide_how(prs):
         ("03", "Launch + Steward · Open structure", "Ship the public utility. Make it last.",
          "The full civic launch—operating structure, sustaining model, governance, and the team to run it. The shape of Phase 3 is what Phases 1 and 2 are designed to figure out."),
     ]
-    y0 = Inches(3.55)
-    row_h = Inches(1.20)
-    num_w = Inches(1.05)
+    y0 = Inches(3.45)
+    row_h = Inches(1.35)
+    num_w = Inches(1.10)
     gap = Inches(0.35)
     for i, (num, label, head, desc) in enumerate(phases):
         ry = y0 + row_h * i
         num_tf = add_text_box(s, PAD_X, ry, num_w, row_h, anchor=MSO_ANCHOR.TOP)
         p = num_tf.paragraphs[0]
-        run(p, num, font=SERIF, size=PHASE_NUM_SIZE, color=ACCENT)
+        run(p, num, font=SERIF, size=42, color=ACCENT)
 
         body_x = PAD_X + num_w + gap
         body_w = CONTENT_W - num_w - gap
-        b_tf = add_text_box(s, body_x, ry + Inches(0.05), body_w, row_h)
+        b_tf = add_text_box(s, body_x, ry + Inches(0.03), body_w, row_h)
         p = b_tf.paragraphs[0]
         run(p, label.upper(), font=MONO, size=10, bold=True, color=TEXT_DIM,
             char_spacing=2.4, space_after=Pt(3))
         p = b_tf.add_paragraph()
-        p.line_spacing = 1.18
-        run(p, head, font=SERIF, size=20, color=HEADLINE, space_after=Pt(4))
+        p.line_spacing = 1.16
+        run(p, head, font=SERIF, size=19, color=HEADLINE, space_after=Pt(4))
         p = b_tf.add_paragraph()
-        p.line_spacing = 1.42
-        run(p, desc, font=SANS, size=11.5, color=TEXT)
+        p.line_spacing = 1.34
+        run(p, desc, font=SANS, size=10.5, color=TEXT)
 
         if i < len(phases) - 1:
-            add_thin_rule(s, PAD_X, ry + row_h - Inches(0.05), CONTENT_W)
+            add_thin_rule(s, PAD_X, ry + row_h - Inches(0.04), CONTENT_W)
 
 
 def slide_phase1(prs):
@@ -655,12 +668,12 @@ def slide_phase1(prs):
             "Partnership architecture and sequence",
             "Governance and sustaining-model options",
             "Phase 2 proposal with timeline, team, budget",
-        ], Inches(1.10)),
-        ("Timeline", ["Four to six weeks from kickoff to delivered document."], Inches(0.30)),
-        ("Fee", ["$75,000 fixed, plus travel and expenses."], Inches(0.30)),
-        ("Payment", ["Half upon commencement, half upon completion."], Inches(0.30)),
-        ("What you provide", ["Vision alignment, input, and ideas; funding; introductions to art and tech stakeholders."], Inches(0.40)),
-        ("What happens at the end", ["You have a document you can read, react to, and decide on without commitment. If Phase 2 is the right move, we proceed."], Inches(0.50)),
+        ], Inches(1.40)),
+        ("Timeline", ["Four to six weeks from kickoff to delivered document."], Inches(0.32)),
+        ("Fee", ["$75,000 fixed, plus travel and expenses."], Inches(0.32)),
+        ("Payment", ["Half upon commencement, half upon completion."], Inches(0.32)),
+        ("What you provide", ["Vision alignment, input, and ideas; funding; introductions to art and tech stakeholders."], Inches(0.45)),
+        ("What happens at the end", ["You have a document you can read, react to, and decide on without commitment. If Phase 2 is the right move, we proceed."], Inches(0.55)),
     ]
 
     # Compute total frame height from row heights + rules + padding
